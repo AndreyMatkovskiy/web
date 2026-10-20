@@ -58,6 +58,7 @@ form {
     background: linear-gradient(90deg, #4a7be8 0%, #8b4fe8 100%);
     color: #fff;
     cursor: pointer;
+    text-transform: uppercase;
 }
 
 .bread ul {
