@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3 лабораторная</title>
+    <link rel="stylesheet" href="src/styles/style.css">
+    <title>4 лабораторная</title>
 </head>
 <body>
     <header class="header">
-        <span class="header_title">IT website</span>
+        <span class="header_title accent_color">IT WEBSITE</span>
 
         <nav class="header_navbar">
             <ul>
@@ -21,17 +22,17 @@
 
         <address class="header_contacts">
             <div class="header_phones">
-                <a href="tel:+71111111111">+71111111111</a>
-                <a href="tel:+71111111111">+71111111111</a>
+                <img src="src/img/header_phone.jpg" class="header_img_phone">
+                <a href="tel:+71111111111" class="accent_color">+71111111111</a>
+                <a href="tel:+71111111111" class="accent_color">+71111111111</a>
             </div>
 
             <div class="header_email">
-                <a href="mailto:itcompany@mail.com">itcompany@mail.com</a>
+                <img src="src/img/header_mail.jpg" class="header_img_mail">
+                <a href="mailto:itcompany@mail.com" class="accent_color">itcompany@mail.com</a>
             </div>
         </address>
     </header>
-
-    <hr>
 
     <main>
         <section class="main_section">
@@ -43,32 +44,33 @@
                 </h1>
 
                 <p class="section_description">
-                    We create
+                    We create mobile applications for iOS, Android that transfer your 
+                    business to mobile applications of your customers' devices
                 </p>
             </div>
 
             <form action="#" method="post" class="contact_form">
                 <h2 class="contact_form_title"> 
-                    Leave
+                    Leave your contacts and we will call you back within 30 minutes
                 </h2>
 
                 <div class="form_container">
                     <div class="contact_form_element">
                         <label for="phone">Phone number</label>
-                        <img src="" class="country_img">
-                        <input id="phone" type="tel">
+                        <div class="phone_block">
+                            <img src="src/img/flag.png" class="country_img">
+                            <input id="phone" type="tel" placeholder="+7 (111) 111-11-11">
+                        </div>
                     </div>
 
                     <div class="contact_form_element">
                         <label for="name">Full name</label>
-                        <input id="name" type="text">
+                        <input id="name" type="text" placeholder="Иван Иванов">
                     </div>
                     
                     <button class="contact_form_button" type="submit">Get consultation</button>
                 </div>
             </form>
-
-            <img src="" class="background_imgs">
         </section>
 
         <hr>
@@ -360,8 +362,6 @@
                 </details>
             </div>
         </section>
-
-        <hr>
     </main>
 
     <footer class="footer">
@@ -370,7 +370,7 @@
         <div class="footer_items">
             <div class="footer_item">
                 <div class="footer_item_title">
-                    <img src="" class="footer_item_title_icon">
+                    <img src="src/img/phone_footer.png" class="footer_item_title_icon">
                     <p class="footer_item_description">Contact nums</p>
                 </div>
 
@@ -379,7 +379,7 @@
 
             <div class="footer_item">
                 <div class="footer_item_title">
-                    <img src="" class="footer_item_title_icon">
+                    <img src="src/img/email_footer.png" class="footer_item_title_icon">
                     <p class="footer_item_description">Post</p>
                 </div>
     
@@ -388,7 +388,7 @@
             
             <div class="footer_item">
                 <div class="footer_item_title">
-                    <img src="" class="footer_item_title_icon">
+                    <img src="src/img/geo_footer.png" class="footer_item_title_icon">
                     <p class="footer_item_description">Adress</p>
                 </div>
     
@@ -397,12 +397,17 @@
             
             <div class="footer_item">
                 <div class="footer_item_title">
-                    <img src="" class="footer_item_title_icon">
+                    <img src="src/img/doc_footer.png" class="footer_item_title_icon">
                     <p class="footer_item_description">Leave a request</p>
                 </div>
     
                 <p class="footer_item_info">Leave a request</p>
             </div>
+        </div>
+        
+        <div class="footer_world">
+            <img src="src/img/footer_info.png" class="footer_world_img">
+            <p class="footer_world_txt">We work throughout world</p>
         </div>
     </footer>
 </body>
