@@ -6,6 +6,10 @@ a {
     color: #000000;
 }
 
+p, h1, h2, h3 {
+    margin: 0;
+}
+
 body {
     position: relative;
     margin: 0;
@@ -271,3 +275,72 @@ body::before {
     justify-content: center;
     gap: 12px;
 }
+
+.cycle_section {
+    color: #101828;
+    margin: 0 108px;
+    display: flex;
+    flex-direction: row;
+    gap: 150px;
+}
+
+.cycle_title {
+    font-family: 'Inter-Bold', sans-serif;
+    font-size: 36px;
+}
+
+.cycle_subtitle {
+    font-family: 'SF-Pro-SemiBold', sans-serif;
+    font-size: 20px;
+}
+
+.cycle_description {
+    font-family: 'SF-Pro-SemiBold', sans-serif;
+    font-size: 15px;
+    margin: 32px 0 0 0;
+}
+
+.cycle_subdescription {
+    font-family: 'SF-Pro-SemiBold', sans-serif;
+    font-size: 17px;
+    margin: 16px 0 32px 0
+}
+
+.cycle_slash {
+    color: #2D66EE;
+}
+
+.cycle_left_case {
+    max-width: 496px;
+}
+
+.cycle_left_case_programm {
+    margin: 34px 0 0 0;
+}
+
+.technologies_list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    font-family: 'SF-Pro-Regular', sans-serif;
+    font-size: 20px;
+    color: #1D2939;
+}
+
+.technologies_list li:hover {
+    font-family: 'SF-Pro-SemiBold', sans-serif;
+    color: #101828;
+    text-decoration: underline;
+    text-decoration-color: #2D66EE;
+    cursor: pointer;
+}
+
+.link_arrow {
+    color: #2D66EE;
+    padding: 0 0 0 15px;
+    height: 12px;
+    width: 7px;
+}
+
