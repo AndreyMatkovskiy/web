@@ -8,30 +8,43 @@
 </head>
 <body>
     <header class="header">
+        <input type="checkbox" id="menu_toggle" class="header_toggle">
+        <label for="menu_toggle" class="header_burger" aria-label="Открыть меню"><span></span></label>
+
         <span class="header_title accent_color">IT WEBSITE</span>
 
-        <nav class="header_navbar">
-            <ul>
-                <li><a href="#Services" class="navbar_text">Services</a></li>
-                <li><a href="#Media" class="navbar_text">Media</a></li>
-                <li><a href="#Cases" class="navbar_text">Cases</a></li>
-                <li><a href="#FAQ" class="navbar_text">FAQ</a></li>
-                <li><a href="#Contacts" class="navbar_text">Contacts</a></li>
-            </ul>
-        </nav>
+        <div class="header_menu">
+            <label for="menu_toggle" class="header_close" aria-label="Закрыть меню"></label>
+            <span class="header_menu_title accent_color">IT WEBSITE</span>
 
-        <address class="header_contacts">
-            <div class="header_phones">
-                <img src="src/img/header_phone.jpg" class="header_img_phone">
-                <a href="tel:+71111111111" class="accent_color">+71111111111</a>
-                <a href="tel:+71111111111" class="accent_color">+71111111111</a>
-            </div>
+            <nav class="header_navbar">
+                <ul>
+                    <li><a href="#Services" class="navbar_text">Services</a></li>
+                    <li><a href="#Media" class="navbar_text">Media</a></li>
+                    <li><a href="#Cases" class="navbar_text">Cases</a></li>
+                    <li><a href="#FAQ" class="navbar_text">FAQ</a></li>
+                    <li><a href="#Contacts" class="navbar_text">Contacts</a></li>
+                </ul>
+            </nav>
 
-            <div class="header_email">
-                <img src="src/img/header_mail.jpg" class="header_img_mail">
-                <a href="mailto:itcompany@mail.com" class="accent_color">itcompany@mail.com</a>
-            </div>
-        </address>
+            <address class="header_contacts">
+                <div class="header_phones">
+                    <img src="src/img/header_phone.jpg" class="header_img_phone" alt="">
+                    <a href="tel:+71111111111" class="accent_color">+71111111111</a>
+                    <a href="tel:+71111111111" class="accent_color">+71111111111</a>
+                </div>
+
+                <div class="header_email">
+                    <img src="src/img/header_mail.jpg" class="header_img_mail" alt="">
+                    <a href="mailto:itcompany@mail.com" class="accent_color">itcompany@mail.com</a>
+                </div>
+            </address>
+        </div>
+
+        <a href="mailto:itcompany@mail.com" class="header_email_top accent_color">
+            <img src="src/img/header_mail.jpg" class="header_img_mail" alt="">
+            itcompany@mail.com
+        </a>
     </header>
 
     <main>
