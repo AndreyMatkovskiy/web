@@ -1,0 +1,12 @@
+@mixin font-face($family, $file, $format, $weight) {
+    @font-face {
+        font-family: $family;
+        src: url("../fonts/#{$file}") format($format);
+        font-weight: $weight;
+    }
+}
+
+@include font-face("Inter-Bold", "InterDisplay-Bold.woff2", "woff2", 700);
+@include font-face("SF-Pro-medium", "SFPRODISPLAYMEDIUM.OTF", "opentype", 500);
+@include font-face("SF-Pro-SemiBold", "SF-Pro-Display-Semibold.otf", "opentype", 600);
+@include font-face("SF-Pro-Regular", "SF-Pro-Display-Regular.otf", "opentype", 400);
