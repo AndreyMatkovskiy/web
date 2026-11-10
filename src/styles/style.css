@@ -405,6 +405,19 @@ body::before {
         background-color: #2D66EE;
     }
 
+    .header_burger span::before,
+    .header_burger span::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        width: 36px;
+        height: 4px;
+        background-color: #2D66EE;
+    }
+
+    .header_burger span::before { top: -9px; }
+    .header_burger span::after  { top: 9px; }
+
     .header_toggle:focus-visible + .header_burger,
     .header_close:focus-visible {
         outline: 2px solid #2D66EE;
