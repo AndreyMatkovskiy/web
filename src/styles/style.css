@@ -547,8 +547,8 @@ body::before {
             linear-gradient(to bottom, rgba(242, 244, 247, 0) 70%, #f2f4f7 100%),
             url(../img/background.png);
         background-repeat: no-repeat;
-        background-position: right -100px top 96px, right -100px top 96px;
-        background-size: 860px 518px, 860px auto;
+        background-position: right -230px top 96px, right -230px top 96px;
+        background-size: 1250px 753px, 1250px auto;
     }
 
     .section_content {
@@ -684,12 +684,6 @@ body::before {
 
     .header_email_top {
         display: none;
-    }
-
-    .header_burger {
-        position: absolute;
-        left: 16px;
-        width: 44px;
     }
 
     .header_menu {
