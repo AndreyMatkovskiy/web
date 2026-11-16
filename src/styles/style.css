@@ -695,7 +695,7 @@ body {
   }
 }
 .cycle_description {
-  font-family: "SF-Pro-SemiBold", sans-serif;
+  font-family: "SF-Pro-medium", sans-serif;
   font-size: 15px;
   margin: 32px 0 0 0;
 }
@@ -706,7 +706,7 @@ body {
   }
 }
 .cycle_subdescription {
-  font-family: "SF-Pro-SemiBold", sans-serif;
+  font-family: "SF-Pro-Regular", sans-serif;
   font-size: 17px;
   margin: 16px 0 32px 0;
 }
