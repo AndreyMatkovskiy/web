@@ -17,6 +17,10 @@ $font-sf-medium: 'SF-Pro-medium', sans-serif;
 $font-sf-semibold: 'SF-Pro-SemiBold', sans-serif;
 $font-sf-regular: 'SF-Pro-Regular', sans-serif;
 
+$content-width: 1224px;
+$desktop-gutter: max(108px, calc((100% - $content-width) / 2));
+
+$breakpoint-compact: 1200px;
 $breakpoint-tablet: 768px;
 $breakpoint-mobile: 425px;
 
@@ -50,6 +54,12 @@ $mobile-gap: -37px;
 $mobile-right-offset: 0;
 $mobile-left-offset: $mobile-right-width + $mobile-gap + $mobile-right-offset;
 $mobile-columns-width: $mobile-left-width + $mobile-gap + $mobile-right-width;
+
+@mixin compact {
+    @media (max-width: $breakpoint-compact) {
+        @content;
+    }
+}
 
 @mixin tablet {
     @media (max-width: $breakpoint-tablet) {
@@ -112,7 +122,9 @@ p, h1, h2, h3 {
 
 body {
     position: relative;
-    margin: 0;
+    margin: 0 auto;
+    color: $color-dark;
+    font-family: $font-sf-regular;
     padding: 20px 0 0 0;
     display: flex;
     flex-direction: column;
@@ -133,18 +145,18 @@ body {
     gap: 80px;
     background-color: $color-white;
     border-radius: 12px;
-    margin: 0 108px 20px;
+    margin: 0 $desktop-gutter 20px;
     padding: 0 20px;
     height: 56px;
     box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.08);
 
-    @include tablet {
+    @include compact {
         display: grid;
-        grid-template-columns: 1fr auto 1fr;
+        grid-template-columns: auto 1fr auto;
         height: 88px;
         margin: 0 16px 20px;
         padding: 0 24px;
-        gap: 16px;
+        gap: 12px;
 
         &_toggle:focus-visible + .header_burger,
         &_close:focus-visible {
@@ -162,8 +174,10 @@ body {
         font-size: 20px;
         font-family: $font-inter-bold;
 
-        @include tablet {
+        @include compact {
             justify-self: center;
+            white-space: nowrap;
+            font-size: clamp(14px, 2.6vw, 20px);
         }
     }
 
@@ -172,7 +186,7 @@ body {
         opacity: 0;
         pointer-events: none;
 
-        @include tablet {
+        @include compact {
             &:checked ~ .header_menu {
                 display: flex;
             }
@@ -187,7 +201,7 @@ body {
     }
 
     &_burger {
-        @include tablet {
+        @include compact {
             display: flex;
             align-items: center;
             justify-self: start;
@@ -201,7 +215,7 @@ body {
         }
 
         span {
-            @include tablet {
+            @include compact {
                 position: relative;
                 width: 36px;
                 height: 4px;
@@ -229,14 +243,14 @@ body {
     }
 
     &_email_top {
-        @include tablet {
+        @include compact {
             display: flex;
             align-items: center;
             gap: 8px;
             justify-content: flex-end;
-            width: 180px;
+            width: auto;
             font-family: $font-sf-medium;
-            font-size: 14px;
+            font-size: clamp(11px, 1.8vw, 14px);
         }
 
         @include mobile {
@@ -247,7 +261,7 @@ body {
     &_menu {
         display: contents;
 
-        @include tablet {
+        @include compact {
             display: none;
             position: fixed;
             top: 0;
@@ -270,7 +284,7 @@ body {
     }
 
     &_menu_title {
-        @include tablet {
+        @include compact {
             display: block;
             font-family: $font-inter-bold;
             font-size: 48px;
@@ -283,7 +297,7 @@ body {
     }
 
     &_close {
-        @include tablet {
+        @include compact {
             display: block;
             position: absolute;
             top: 46px;
@@ -322,7 +336,7 @@ body {
     }
 
     &_navbar {
-        @include tablet {
+        @include compact {
             margin-top: 52px;
         }
 
@@ -339,7 +353,7 @@ body {
             font-family: $font-sf-medium;
             font-size: 14px;
 
-            @include tablet {
+            @include compact {
                 flex-direction: column;
                 align-items: center;
                 gap: 44px;
@@ -356,7 +370,7 @@ body {
         }
 
         a {
-            @include tablet {
+            @include compact {
                 color: $color-dark;
             }
         }
@@ -379,7 +393,7 @@ body {
         font-family: $font-sf-medium;
         font-size: 14px;
 
-        @include tablet {
+        @include compact {
             flex-wrap: wrap;
             justify-content: center;
             gap: 16px 38px;
@@ -405,7 +419,7 @@ body {
     }
 
     &_phones {
-        @include tablet {
+        @include compact {
             display: contents;
 
             .header_img_phone {
@@ -433,10 +447,16 @@ body {
     position: relative;
     isolation: isolate;
     overflow: hidden;
-    min-height: 804px;
+    box-sizing: border-box;
+    min-height: 900px;
     margin-top: -96px;
     padding-top: 96px;
     background-color: $color-bg;
+
+    @include compact {
+        margin-top: -128px;
+        padding-top: 128px;
+    }
 
     @include tablet {
         min-height: 0;
@@ -462,7 +482,7 @@ body {
         content: "";
         position: absolute;
         top: -400px;
-        right: 20px;
+        right: max(20px, calc((100% - $content-width - 216px) / 2 + 20px));
         width: $desktop-columns-width;
         height: 1700px;
         transform: rotate($columns-rotate);
@@ -478,6 +498,8 @@ body {
         &::before {
             top: -300px;
             right: -40px;
+            -webkit-mask-image: linear-gradient(to right, transparent, #000000 45%);
+            mask-image: linear-gradient(to right, transparent, #000000 45%);
             width: $tablet-columns-width;
             height: 1400px;
             @include columns-background(
@@ -501,6 +523,8 @@ body {
         &::before {
             top: -300px;
             right: 11px;
+            -webkit-mask-image: none;
+            mask-image: none;
             width: $mobile-columns-width;
             height: 1100px;
             @include columns-background(
@@ -552,10 +576,14 @@ body {
     &_content {
         display: flex;
         flex-direction: column;
-        margin: 80px 0 0 108px;
+        margin: 80px 0 0 $desktop-gutter;
         gap: 24px;
         width: 600px;
-        height: 220px;
+        min-height: 220px;
+
+        @include compact {
+            margin-left: 40px;
+        }
 
         @include tablet {
             width: auto;
@@ -582,11 +610,16 @@ body {
     gap: 32px;
     background-color: $color-white;
     box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.08);
-    margin: 0 0 0 108px;
+    margin: 0 0 0 $desktop-gutter;
+
+    @include compact {
+        margin-left: 40px;
+    }
 
     @include tablet {
         box-sizing: border-box;
         width: 384px;
+        max-width: calc(100% - 80px);
         height: auto;
         margin: 72px 0 0 40px;
         padding: 32px;
@@ -706,14 +739,22 @@ body {
 .cycle {
     &_section {
         color: $color-dark;
-        margin: 40px 108px;
+        margin: 40px $desktop-gutter;
         display: flex;
         flex-direction: row;
         gap: 150px;
+        padding: 40px 0;
+
+        @include compact {
+            margin: 40px;
+            gap: 40px;
+            justify-content: space-between;
+        }
 
         @include tablet {
             margin: 0 40px;
             padding: 56px 0 24px;
+            flex-wrap: wrap;
             gap: 40px;
             justify-content: space-between;
         }
@@ -784,7 +825,7 @@ body {
         max-width: 496px;
 
         @include tablet {
-            flex: 1 1 auto;
+            flex: 1 1 260px;
             max-width: 310px;
         }
 
@@ -845,13 +886,971 @@ body {
     width: 7px;
 }
 
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 140px;
+}
+
+h4 {
+    margin: 0;
+}
+
+img {
+    max-width: 100%;
+}
+
+button,
+input {
+    font: inherit;
+}
+
+button,
+summary {
+    cursor: pointer;
+}
+
+a:focus-visible,
+button:focus-visible,
+summary:focus-visible,
+input:focus-visible {
+    outline: 2px solid $color-accent;
+    outline-offset: 4px;
+}
+
+.visually_hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+}
+
+@mixin section-spacing {
+    padding: 80px $desktop-gutter;
+
+    @include compact {
+        padding: 64px 40px;
+    }
+
+    @include tablet {
+        padding: 40px;
+    }
+
+    @include mobile {
+        padding: 40px 24px;
+    }
+}
+
+@mixin section-heading {
+    font-family: $font-inter-bold;
+    font-size: 36px;
+    line-height: 1.4;
+
+    @include tablet {
+        font-size: 28px;
+    }
+
+    @include mobile {
+        font-size: 24px;
+        line-height: 1.3;
+    }
+}
+
+@mixin blue-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    min-height: 40px;
+    padding: 10px 24px;
+    border: none;
+    border-radius: 8px;
+    background-color: $color-accent;
+    color: $color-white;
+    font-family: $font-sf-medium;
+    font-size: 14px;
+    line-height: 1.4;
+    text-align: center;
+
+    &:hover {
+        background-color: #2054d1;
+    }
+
+    @include mobile {
+        padding: 10px 16px;
+        font-size: 13px;
+    }
+}
+
+@mixin form-field {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    min-width: 0;
+    gap: 4px;
+    border-bottom: 1px solid $color-bg;
+
+    label {
+        color: $color-gray;
+        font-family: $font-sf-medium;
+        font-size: 13px;
+    }
+
+    input {
+        box-sizing: border-box;
+        min-width: 0;
+        width: 100%;
+        padding: 4px 0 8px;
+        border: none;
+        border-radius: 0;
+        background-color: transparent;
+        color: $color-dark;
+        font-size: 17px;
+
+        &::placeholder {
+            color: $color-dark;
+            opacity: 1;
+        }
+    }
+
+    .country_img {
+        flex: none;
+        height: auto;
+    }
+
+    @include mobile {
+        input {
+            font-size: 14px;
+        }
+    }
+}
+
+.industries {
+    @include section-spacing;
+    padding-bottom: 40px;
+    background-color: $color-bg;
+
+    &_title {
+        @include section-heading;
+    }
+
+    &_list {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        grid-template-rows: repeat(5, auto);
+        grid-auto-flow: column;
+        gap: 16px 32px;
+        margin: 32px 0 0;
+        padding: 0;
+        list-style: none;
+
+        @include tablet {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            grid-template-rows: repeat(8, auto);
+            gap: 16px 24px;
+        }
+
+        @include mobile {
+            grid-template-columns: 1fr;
+            grid-template-rows: none;
+            grid-auto-flow: row;
+            margin-top: 24px;
+            gap: 12px;
+        }
+    }
+
+    &_list_element {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        font-size: 17px;
+
+        @include tablet {
+            gap: 12px;
+            font-size: 15px;
+        }
+    }
+
+    &_list_img {
+        flex: none;
+        width: 44px;
+        height: 44px;
+        object-fit: contain;
+    }
+}
+
+.projects {
+    @include section-spacing;
+    padding-top: 40px;
+    padding-bottom: 64px;
+    background-color: $color-bg;
+
+    &_title {
+        @include section-heading;
+    }
+
+    &_description {
+        max-width: 650px;
+        margin-top: 24px;
+        font-size: 15px;
+        line-height: 1.4;
+
+        @include mobile {
+            margin-top: 16px;
+            font-size: 14px;
+
+            br {
+                display: none;
+            }
+        }
+    }
+
+    &_items_list {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 32px;
+        margin-top: 64px;
+
+        @include compact {
+            gap: 16px;
+        }
+
+        @include tablet {
+            position: relative;
+            margin-top: 32px;
+        }
+
+        @include mobile {
+            position: static;
+            margin-top: 24px;
+        }
+    }
+
+    &_navbar {
+        min-width: 0;
+        overflow-x: auto;
+        scrollbar-width: thin;
+    }
+
+    &_list {
+        display: flex;
+        align-items: center;
+        gap: 24px;
+        margin: 0;
+        padding: 8px 0;
+        list-style: none;
+        white-space: nowrap;
+        font-size: 15px;
+
+        a {
+            display: block;
+            padding: 8px 0;
+            border-bottom: 2px solid transparent;
+
+            &:hover {
+                border-color: $color-accent;
+            }
+        }
+
+        .projects_link_active {
+            border-color: $color-accent;
+        }
+
+        @include tablet {
+            gap: 20px;
+            font-size: 13px;
+        }
+    }
+
+    &_button {
+        @include blue-button;
+        flex: none;
+
+        @include tablet {
+            position: absolute;
+            top: 80px;
+            right: 0;
+        }
+
+        @include mobile {
+            position: static;
+            width: 100%;
+            margin-top: 24px;
+            order: 4;
+        }
+    }
+
+    &_article {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        align-items: start;
+        gap: 32px;
+        margin-top: 48px;
+
+        @include tablet {
+            position: relative;
+            display: block;
+            margin-top: 32px;
+        }
+
+        @include mobile {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            margin-top: 24px;
+        }
+    }
+
+    &_article_title {
+        @include section-heading;
+    }
+
+    &_article_description {
+        margin-top: 32px;
+        font-size: 17px;
+        line-height: 1.4;
+
+        @include tablet {
+            max-width: 65%;
+            font-size: 14px;
+        }
+
+        @include mobile {
+            max-width: none;
+            margin-top: 24px;
+        }
+    }
+
+    &_article_list {
+        margin-top: 40px;
+        color: $color-gray;
+        font-size: 15px;
+
+        @include tablet {
+            max-width: 60%;
+            margin-top: 32px;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        @include mobile {
+            max-width: none;
+            margin-top: 24px;
+        }
+    }
+
+    &_article_tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 24px;
+        margin-top: 40px;
+    }
+
+    &_article_tag {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 15px;
+    }
+
+    &_article_tag_img {
+        width: 24px;
+        height: 24px;
+        object-fit: contain;
+    }
+
+    &_article_stats {
+        display: flex;
+        gap: 32px;
+        margin-top: 40px;
+    }
+
+    &_article_stats_title {
+        font-family: $font-inter-bold;
+        font-size: 24px;
+    }
+
+    &_article_stats_description {
+        margin-top: 12px;
+        color: $color-gray;
+        font-size: 13px;
+    }
+
+    &_article_img {
+        width: 100%;
+        margin-top: 0;
+
+        @include tablet {
+            position: absolute;
+            right: 0;
+            bottom: 40px;
+            width: 47%;
+        }
+
+        @include mobile {
+            position: static;
+            width: 100%;
+            order: -1;
+        }
+    }
+
+    @include mobile {
+        display: flex;
+        flex-direction: column;
+
+        &_items_list,
+        &_navbar {
+            display: contents;
+        }
+
+        &_list {
+            flex-wrap: wrap;
+            gap: 0 16px;
+            margin-top: 24px;
+            font-size: 12px;
+        }
+
+        &_article_tags,
+        &_article_stats {
+            margin-top: 24px;
+        }
+    }
+}
+
+.download_images {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-top: 40px;
+
+    &_item {
+        display: block;
+        width: auto;
+        height: 40px;
+    }
+
+    @include tablet {
+        gap: 8px;
+
+        &_item {
+            height: 32px;
+        }
+    }
+
+    @include mobile {
+        margin-top: 24px;
+    }
+}
+
+.discuss {
+    @include section-spacing;
+    position: relative;
+    isolation: isolate;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: center;
+    gap: 64px;
+    background: $color-accent url(../img/Fr.png) center / cover;
+    color: $color-white;
+
+    &::before {
+        content: "THOUSAND";
+        position: absolute;
+        top: 50%;
+        left: 0;
+        right: 0;
+        z-index: -1;
+        overflow: hidden;
+        transform: translateY(-50%);
+        opacity: 0.04;
+        font-family: $font-inter-bold;
+        font-size: clamp(64px, 15vw, 240px);
+    }
+
+    &_title {
+        @include section-heading;
+    }
+
+    &_description {
+        margin-top: 32px;
+        font-size: 15px;
+        line-height: 1.4;
+    }
+
+    &_right_case {
+        min-width: 0;
+    }
+
+    &_form {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 32px 24px;
+        padding: 40px 24px 24px;
+        border-radius: 12px;
+        background-color: $color-white;
+        color: $color-dark;
+    }
+
+    &_form_item {
+        @include form-field;
+    }
+
+    &_form_button {
+        @include blue-button;
+        grid-column: 1 / -1;
+        justify-self: end;
+    }
+
+    @include compact {
+        gap: 32px;
+    }
+
+    @include tablet {
+        grid-template-columns: 1fr;
+        gap: 32px;
+
+        &_right_case {
+            width: 100%;
+            max-width: 600px;
+        }
+
+        &_description {
+            margin-top: 24px;
+            font-size: 14px;
+        }
+    }
+
+    @include mobile {
+        &_form {
+            grid-template-columns: 1fr;
+            padding: 32px 24px;
+        }
+
+        &_form_button {
+            justify-self: stretch;
+        }
+    }
+}
+
+.application {
+    @include section-spacing;
+
+    &_title {
+        @include section-heading;
+    }
+
+    &_list {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 392px));
+        grid-template-rows: repeat(3, 1fr);
+        grid-auto-flow: column;
+        justify-content: space-between;
+        gap: 8px 48px;
+        margin-top: 32px;
+
+        @include tablet {
+            grid-template-columns: 1fr;
+            grid-template-rows: none;
+            grid-auto-flow: row;
+            gap: 24px;
+        }
+    }
+
+    &_item {
+        position: relative;
+        isolation: isolate;
+        overflow: hidden;
+        padding: 24px;
+        border-radius: 12px;
+        box-shadow: 0 0 16px rgba(0, 0, 0, 0.06);
+    }
+
+    &_item_heading {
+        display: flex;
+        align-items: center;
+        gap: 24px;
+    }
+
+    &_img {
+        width: 48px;
+        height: 48px;
+        object-fit: contain;
+    }
+
+    &_item_title {
+        font-family: $font-sf-medium;
+        font-size: 20px;
+        font-weight: normal;
+    }
+
+    &_description {
+        margin-top: 16px;
+        font-size: 15px;
+        line-height: 1.4;
+    }
+
+    @include mobile {
+        &_list {
+            gap: 16px;
+            margin-top: 24px;
+        }
+
+        &_item {
+            padding: 24px 16px;
+        }
+
+        &_item_heading {
+            gap: 16px;
+        }
+
+        &_item_title {
+            font-size: 18px;
+        }
+
+        &_description {
+            font-size: 14px;
+        }
+    }
+}
+
+.background_number {
+    position: absolute;
+    right: 0;
+    bottom: -36px;
+    z-index: -1;
+    color: #f8f8fb;
+    font-family: $font-inter-bold;
+    font-size: 240px;
+    line-height: 1;
+}
+
+.team {
+    @include section-spacing;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-areas: "intro image" "stats image" "text image";
+    align-content: center;
+    gap: 40px 32px;
+    background-color: $color-bg;
+
+    &_left_case {
+        grid-area: intro;
+    }
+
+    &_title {
+        @include section-heading;
+    }
+
+    &_description {
+        margin-top: 32px;
+        font-size: 15px;
+        line-height: 1.4;
+    }
+
+    &_description_bottom {
+        grid-area: text;
+        margin-top: 0;
+    }
+
+    &_stats_list {
+        grid-area: stats;
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+    }
+
+    &_stats_title {
+        font-family: $font-inter-bold;
+        font-size: 48px;
+        white-space: nowrap;
+    }
+
+    &_stats_description {
+        margin-top: 16px;
+        color: $color-gray;
+        font-size: 15px;
+    }
+
+    &_right_case {
+        grid-area: image;
+        align-self: center;
+        min-width: 0;
+    }
+
+    &_img {
+        display: block;
+        width: 100%;
+        filter: drop-shadow(0 16px 10px rgba(0, 0, 0, 0.16));
+    }
+
+    @include compact {
+        &_stats_title {
+            font-size: 36px;
+        }
+    }
+
+    @include tablet {
+        grid-template-columns: 1fr;
+        grid-template-areas: "intro" "image" "stats" "text";
+        gap: 40px;
+
+        &_description {
+            max-width: 600px;
+            margin-top: 24px;
+            font-size: 14px;
+        }
+
+        &_description_bottom {
+            margin-top: 0;
+        }
+
+        &_stats_title {
+            font-size: 48px;
+        }
+    }
+
+    @include mobile {
+        gap: 32px;
+
+        &_stats_title {
+            font-size: 28px;
+        }
+
+        &_stats_description {
+            margin-top: 8px;
+            font-size: 12px;
+        }
+    }
+}
+
+.video_figure {
+    margin: 0;
+}
+
+.book {
+    @include section-spacing;
+    display: grid;
+    grid-template-columns: minmax(0, 600px) minmax(0, 1fr);
+    align-items: center;
+    gap: 64px;
+    background: $color-accent url(../img/Fr.png) center / cover;
+
+    &_title {
+        @include section-heading;
+        color: $color-white;
+    }
+
+    &_form {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 32px 24px;
+        margin-top: 48px;
+        padding: 40px 24px 24px;
+        border-radius: 12px;
+        background-color: $color-white;
+    }
+
+    &_form_item {
+        @include form-field;
+    }
+
+    &_form_email {
+        grid-column: 1 / -1;
+    }
+
+    &_form_button {
+        @include blue-button;
+        grid-column: 1 / -1;
+        justify-self: end;
+    }
+
+    &_img {
+        justify-self: center;
+        width: 300px;
+        height: auto;
+    }
+
+    @include compact {
+        grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+        gap: 32px;
+    }
+
+    @include tablet {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 0.8fr);
+        align-items: end;
+
+        &_text {
+            display: contents;
+        }
+
+        &_title {
+            grid-column: 1 / -1;
+        }
+
+        &_form {
+            grid-template-columns: 1fr;
+            gap: 40px;
+            margin-top: 0;
+            padding: 40px 24px;
+        }
+
+        &_form_button {
+            justify-self: stretch;
+            padding-left: 12px;
+            padding-right: 12px;
+            font-size: 13px;
+        }
+    }
+
+    @include mobile {
+        grid-template-columns: 1fr;
+        gap: 32px;
+
+        &_title {
+            grid-row: 1;
+
+            br {
+                display: none;
+            }
+        }
+
+        &_img {
+            grid-row: 2;
+            width: 200px;
+        }
+
+        &_form {
+            grid-row: 3;
+        }
+    }
+}
+
+.faq {
+    @include section-spacing;
+
+    &_title {
+        @include section-heading;
+    }
+
+    &_list {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 24px;
+        margin-top: 48px;
+
+        @include tablet {
+            grid-template-columns: 1fr;
+            gap: 0;
+            margin-top: 32px;
+        }
+    }
+
+    &_item {
+        border-top: 1px solid $color-bg;
+        border-bottom: 1px solid $color-bg;
+
+        & + & {
+            border-top: none;
+        }
+
+        &[open] .faq_question::after {
+            color: $color-gray-light;
+            transform: rotate(45deg);
+        }
+    }
+
+    &_question {
+        position: relative;
+        display: flex;
+        align-items: center;
+        min-height: 64px;
+        padding: 24px 64px 24px 0;
+        list-style: none;
+        font-family: $font-sf-medium;
+        font-size: 20px;
+        line-height: 1.4;
+
+        &::-webkit-details-marker {
+            display: none;
+        }
+
+        &::after {
+            content: "+";
+            position: absolute;
+            right: 0;
+            top: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            margin-top: -24px;
+            border-radius: 50%;
+            color: $color-accent;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+            font-family: $font-sf-regular;
+            font-size: 40px;
+        }
+    }
+
+    &_answer {
+        padding: 0 64px 24px 0;
+        font-size: 15px;
+        line-height: 1.4;
+
+        p + p {
+            margin-top: 24px;
+        }
+    }
+
+    @include mobile {
+        &_question {
+            min-height: 48px;
+            padding: 20px 48px 20px 0;
+            font-size: 17px;
+
+            &::after {
+                width: 36px;
+                height: 36px;
+                margin-top: -18px;
+                font-size: 32px;
+            }
+        }
+
+        &_answer {
+            padding-right: 0;
+            font-size: 14px;
+        }
+    }
+}
+
+@include reduced-motion {
+    html {
+        scroll-behavior: auto;
+    }
+
+    .hero_art::before {
+        animation: none;
+    }
+}
+
 .footer {
     height: 239px;
     background-color: $color-dark;
     color: $color-white;
-    margin: 0 108px;
+    margin: 0 $desktop-gutter;
     border-radius: 12px;
     margin-top: auto;
+    margin-bottom: 48px;
+
+    @include compact {
+        height: auto;
+        margin: 0 40px 40px;
+        padding-bottom: 24px;
+    }
 
     @include tablet {
         height: auto;
@@ -928,6 +1927,7 @@ body {
     }
 
     &_item_info {
+        color: $color-white;
         margin: 8px 0 0 0;
     }
 
